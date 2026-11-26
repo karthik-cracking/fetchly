@@ -1,14 +1,14 @@
-//! `invoke` commands exposed to the UI. Thin wrappers over `prism_core::Core`.
+//! `invoke` commands exposed to the UI. Thin wrappers over `fetchly_core::Core`.
 
 use crate::windows;
-use prism_core::events::{BatchInfo, CaptureInfo, CaptureSource, VideoCapture};
-use prism_core::grabber::GrabberConfig;
-use prism_core::manager::{
+use fetchly_core::events::{BatchInfo, CaptureInfo, CaptureSource, VideoCapture};
+use fetchly_core::grabber::GrabberConfig;
+use fetchly_core::manager::{
     BatchDecision, Bootstrap, CaptureDecision, Core, ItemDetails, ItemPatch, NewItem, StartMode,
     VideoDecision,
 };
-use prism_core::model::*;
-use prism_core::settings::Settings;
+use fetchly_core::model::*;
+use fetchly_core::settings::Settings;
 use serde::Deserialize;
 use std::path::PathBuf;
 use tauri::{AppHandle, Manager, State};
@@ -114,10 +114,10 @@ pub async fn batch_from_pattern(core: State<'_, Core>, pattern: String) -> CmdRe
 /// Batch from pasted text / a text file: every URL found becomes an entry.
 #[tauri::command]
 pub async fn batch_from_text(core: State<'_, Core>, text: String) -> CmdResult<BatchInfo> {
-    let entries: Vec<prism_core::events::BatchEntry> = text
+    let entries: Vec<fetchly_core::events::BatchEntry> = text
         .split_whitespace()
         .filter(|t| t.contains("://") || t.starts_with("magnet:"))
-        .map(|u| prism_core::events::BatchEntry {
+        .map(|u| fetchly_core::events::BatchEntry {
             url: u.to_string(),
             ..Default::default()
         })
@@ -177,7 +177,7 @@ pub async fn cancel_video(core: State<'_, Core>, id: String) -> CmdResult<()> {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StreamArgs {
-    stream: prism_core::events::SniffedStream,
+    stream: fetchly_core::events::SniffedStream,
     page_url: Option<String>,
     title: Option<String>,
 }
@@ -191,23 +191,23 @@ pub async fn add_stream(core: State<'_, Core>, args: StreamArgs) -> CmdResult<Do
 #[tauri::command]
 pub async fn inspect_torrent(
     core: State<'_, Core>,
-    source: prism_torrent::TorrentSource,
-) -> CmdResult<prism_torrent::TorrentMeta> {
+    source: fetchly_torrent::TorrentSource,
+) -> CmdResult<fetchly_torrent::TorrentMeta> {
     core.inspect_torrent(source)
         .await
         .map_err(|e| format!("{e:#}"))
 }
 
 #[tauri::command]
-pub async fn read_torrent_file(path: PathBuf) -> CmdResult<prism_torrent::TorrentSource> {
+pub async fn read_torrent_file(path: PathBuf) -> CmdResult<fetchly_torrent::TorrentSource> {
     let bytes = tokio::fs::read(&path).await.map_err(err)?;
-    Ok(prism_torrent::TorrentSource::File(bytes))
+    Ok(fetchly_torrent::TorrentSource::File(bytes))
 }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddTorrentArgs {
-    source: prism_torrent::TorrentSource,
+    source: fetchly_torrent::TorrentSource,
     name: String,
     size: Option<u64>,
     only_files: Option<Vec<usize>>,
@@ -237,7 +237,7 @@ pub async fn torrent_search(
     core: State<'_, Core>,
     query: String,
     site_id: Option<String>,
-) -> CmdResult<Vec<prism_core::torrent_search::TorrentSearchResult>> {
+) -> CmdResult<Vec<fetchly_core::torrent_search::TorrentSearchResult>> {
     core.torrent_search(&query, site_id.as_deref())
         .await
         .map_err(|e| format!("{e:#}"))
@@ -246,15 +246,15 @@ pub async fn torrent_search(
 #[tauri::command]
 pub async fn torrent_sites(
     core: State<'_, Core>,
-) -> CmdResult<Vec<prism_core::torrent_search::TorrentSite>> {
+) -> CmdResult<Vec<fetchly_core::torrent_search::TorrentSite>> {
     Ok(core.torrent_sites().await)
 }
 
 #[tauri::command]
 pub async fn torrent_add_site(
     core: State<'_, Core>,
-    site: prism_core::torrent_search::TorrentSite,
-) -> CmdResult<Vec<prism_core::torrent_search::TorrentSite>> {
+    site: fetchly_core::torrent_search::TorrentSite,
+) -> CmdResult<Vec<fetchly_core::torrent_search::TorrentSite>> {
     core.torrent_add_site(site).await.map_err(err)
 }
 
@@ -262,7 +262,7 @@ pub async fn torrent_add_site(
 pub async fn torrent_remove_site(
     core: State<'_, Core>,
     id: String,
-) -> CmdResult<Vec<prism_core::torrent_search::TorrentSite>> {
+) -> CmdResult<Vec<fetchly_core::torrent_search::TorrentSite>> {
     core.torrent_remove_site(&id).await.map_err(err)
 }
 
@@ -271,7 +271,7 @@ pub async fn torrent_toggle_site(
     core: State<'_, Core>,
     id: String,
     enabled: bool,
-) -> CmdResult<Vec<prism_core::torrent_search::TorrentSite>> {
+) -> CmdResult<Vec<fetchly_core::torrent_search::TorrentSite>> {
     core.torrent_toggle_site(&id, enabled).await.map_err(err)
 }
 
@@ -290,7 +290,7 @@ pub async fn torrent_magnet(core: State<'_, Core>, detail_url: String) -> CmdRes
 pub async fn zip_contents(
     core: State<'_, Core>,
     id: String,
-) -> CmdResult<Vec<prism_core::manager::ZipFile>> {
+) -> CmdResult<Vec<fetchly_core::manager::ZipFile>> {
     core.zip_contents(&id).await.map_err(err)
 }
 
@@ -320,7 +320,7 @@ pub fn native_material() -> bool {
 }
 
 #[tauri::command]
-pub async fn hf_context(core: State<'_, Core>) -> CmdResult<prism_core::huggingface::Context> {
+pub async fn hf_context(core: State<'_, Core>) -> CmdResult<fetchly_core::huggingface::Context> {
     Ok(core.hf_context())
 }
 
@@ -329,7 +329,7 @@ pub async fn hf_context(core: State<'_, Core>) -> CmdResult<prism_core::huggingf
 pub async fn hf_repo(
     core: State<'_, Core>,
     input: String,
-) -> CmdResult<prism_core::huggingface::Repo> {
+) -> CmdResult<fetchly_core::huggingface::Repo> {
     core.hf_repo(&input).await.map_err(err)
 }
 
@@ -337,25 +337,25 @@ pub async fn hf_repo(
 pub async fn hf_search(
     core: State<'_, Core>,
     query: String,
-) -> CmdResult<Vec<prism_core::huggingface::Hit>> {
+) -> CmdResult<Vec<fetchly_core::huggingface::Hit>> {
     core.hf_search(&query).await.map_err(err)
 }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct HfPresentArgs {
-    kind: prism_core::huggingface::RepoKind,
+    kind: fetchly_core::huggingface::RepoKind,
     id: String,
     sha: String,
     folder: PathBuf,
-    files: Vec<prism_core::huggingface::RepoFile>,
+    files: Vec<fetchly_core::huggingface::RepoFile>,
 }
 
 #[tauri::command]
 pub async fn hf_present(
     core: State<'_, Core>,
     args: HfPresentArgs,
-) -> CmdResult<prism_core::huggingface::Present> {
+) -> CmdResult<fetchly_core::huggingface::Present> {
     let core = core.inner().clone();
     tauri::async_runtime::spawn_blocking(move || {
         core.hf_present(args.kind, &args.id, &args.sha, &args.folder, &args.files)
@@ -367,7 +367,7 @@ pub async fn hf_present(
 #[tauri::command]
 pub async fn hf_add(
     core: State<'_, Core>,
-    args: prism_core::huggingface::AddModel,
+    args: fetchly_core::huggingface::AddModel,
 ) -> CmdResult<usize> {
     core.hf_add(args).map_err(err)
 }
@@ -379,7 +379,7 @@ pub async fn hf_add(
 pub async fn media_inspect(
     core: State<'_, Core>,
     paths: Vec<PathBuf>,
-) -> CmdResult<Vec<prism_core::media::MediaInfo>> {
+) -> CmdResult<Vec<fetchly_core::media::MediaInfo>> {
     Ok(core.media_inspect(paths).await)
 }
 
@@ -387,17 +387,17 @@ pub async fn media_inspect(
 #[tauri::command]
 pub fn media_plan(
     core: State<'_, Core>,
-    files: Vec<prism_core::media::MediaInfo>,
+    files: Vec<fetchly_core::media::MediaInfo>,
     target_bytes: u64,
-) -> Vec<prism_core::media::ShrinkPlan> {
+) -> Vec<fetchly_core::media::ShrinkPlan> {
     core.media_plan(&files, target_bytes)
 }
 
 #[tauri::command]
 pub async fn media_start(
     core: State<'_, Core>,
-    request: prism_core::media::MediaRequest,
-) -> CmdResult<Vec<prism_core::media::MediaJob>> {
+    request: fetchly_core::media::MediaRequest,
+) -> CmdResult<Vec<fetchly_core::media::MediaJob>> {
     core.media_start(request).map_err(err)
 }
 
@@ -407,12 +407,12 @@ pub fn media_cancel(core: State<'_, Core>, id: String) {
 }
 
 #[tauri::command]
-pub fn media_jobs(core: State<'_, Core>) -> Vec<prism_core::media::MediaJob> {
+pub fn media_jobs(core: State<'_, Core>) -> Vec<fetchly_core::media::MediaJob> {
     core.media_jobs()
 }
 
 #[tauri::command]
-pub fn media_clear(core: State<'_, Core>) -> Vec<prism_core::media::MediaJob> {
+pub fn media_clear(core: State<'_, Core>) -> Vec<fetchly_core::media::MediaJob> {
     core.media_clear()
 }
 
@@ -807,7 +807,7 @@ fn with_extension_state(mut status: serde_json::Value, core: &Core) -> serde_jso
     status["extensionVersion"] = serde_json::json!(core.extension_version());
     status["extensionInstallType"] = serde_json::json!(core.extension_install_type());
     status["extensionOutdated"] = serde_json::json!(core.extension_outdated());
-    status["appVersion"] = serde_json::json!(prism_core::APP_VERSION);
+    status["appVersion"] = serde_json::json!(fetchly_core::APP_VERSION);
     status
 }
 
@@ -941,7 +941,7 @@ pub async fn quit_app(app: AppHandle) {
 
 #[tauri::command]
 pub async fn free_space(path: PathBuf) -> CmdResult<Option<u64>> {
-    Ok(prism_core::platform::available_space(&path))
+    Ok(fetchly_core::platform::available_space(&path))
 }
 
 #[tauri::command]

@@ -1,7 +1,7 @@
 //! System tray icon with a quick menu and live state (idle / downloading / paused).
 
 use crate::i18n::tr;
-use prism_core::manager::Core;
+use fetchly_core::manager::Core;
 use std::sync::atomic::{AtomicBool, Ordering};
 use tauri::image::Image;
 use tauri::menu::{CheckMenuItem, Menu, MenuItem, PredefinedMenuItem};

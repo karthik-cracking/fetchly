@@ -3,7 +3,7 @@
 
 use std::sync::atomic::Ordering;
 
-use prism_core::manager::Core;
+use fetchly_core::manager::Core;
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_updater::UpdaterExt;

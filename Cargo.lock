@@ -1745,10 +1745,10 @@ dependencies = [
  "anyhow",
  "arboard",
  "drag",
+ "fetchly-core",
+ "fetchly-native-host",
+ "fetchly-torrent",
  "libc",
- "prism-core",
- "prism-native-host",
- "prism-torrent",
  "serde",
  "serde_json",
  "tauri",
@@ -1771,6 +1771,163 @@ dependencies = [
  "window-vibrancy",
  "windows-sys 0.61.2",
  "winreg 0.56.0",
+]
+
+[[package]]
+name = "fetchly-core"
+version = "1.2.7"
+dependencies = [
+ "anyhow",
+ "arboard",
+ "axum",
+ "bytes",
+ "chrono",
+ "crc32fast",
+ "dirs 7.0.0",
+ "fetchly-engine",
+ "fetchly-testserver",
+ "fetchly-torrent",
+ "fetchly-video",
+ "flate2",
+ "fs4",
+ "futures-util",
+ "getrandom 0.4.3",
+ "hex 0.4.3",
+ "objc2-app-kit",
+ "objc2-foundation",
+ "parking_lot",
+ "percent-encoding",
+ "regex",
+ "reqwest",
+ "rusqlite",
+ "scraper",
+ "serde",
+ "serde_json",
+ "sha2 0.11.1",
+ "tempfile",
+ "thiserror 2.0.21",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "url",
+ "uuid",
+ "windows-sys 0.61.2",
+ "winreg 0.56.0",
+ "zip 9.0.3",
+]
+
+[[package]]
+name = "fetchly-engine"
+version = "1.2.7"
+dependencies = [
+ "aes",
+ "base64 0.22.1",
+ "bytes",
+ "cbc",
+ "dash-mpd-core",
+ "fastrand",
+ "fetchly-testserver",
+ "fs4",
+ "futures-util",
+ "http-auth",
+ "libunftp",
+ "m3u8-rs",
+ "md-5 0.11.0",
+ "mime_guess",
+ "ntlmclient",
+ "percent-encoding",
+ "reqwest",
+ "rustix",
+ "rustls",
+ "rustls-platform-verifier",
+ "serde",
+ "serde_json",
+ "sha1",
+ "sha2 0.11.1",
+ "suppaftp",
+ "tempfile",
+ "thiserror 2.0.21",
+ "tokio",
+ "tokio-rustls",
+ "tokio-util",
+ "tracing",
+ "tracing-subscriber",
+ "unftp-sbe-fs",
+ "url",
+ "uuid",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "fetchly-native-host"
+version = "1.2.7"
+dependencies = [
+ "serde",
+ "serde_json",
+ "static_vcruntime",
+ "tempfile",
+ "thiserror 2.0.21",
+ "ureq",
+ "winreg 0.55.0",
+]
+
+[[package]]
+name = "fetchly-testserver"
+version = "1.2.7"
+dependencies = [
+ "aes",
+ "base64 0.22.1",
+ "bytes",
+ "cbc",
+ "fastrand",
+ "futures-util",
+ "http-body",
+ "http-body-util",
+ "hyper",
+ "hyper-util",
+ "md-5 0.11.0",
+ "percent-encoding",
+ "sha2 0.11.1",
+ "tokio",
+ "url",
+]
+
+[[package]]
+name = "fetchly-torrent"
+version = "1.2.7"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "librqbit",
+ "serde",
+ "serde_json",
+ "sha1",
+ "tempfile",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "fetchly-video"
+version = "1.2.7"
+dependencies = [
+ "bytes",
+ "chrono",
+ "futures-util",
+ "lzma-rust2",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha2 0.11.1",
+ "tar",
+ "tempfile",
+ "thiserror 2.0.21",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "url",
+ "windows-sys 0.61.2",
+ "zip 9.0.3",
 ]
 
 [[package]]
@@ -4747,163 +4904,6 @@ name = "precomputed-hash"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "925383efa346730478fb4838dbe9137d2a47675ad789c546d150a6e1dd4ab31c"
-
-[[package]]
-name = "prism-core"
-version = "1.2.7"
-dependencies = [
- "anyhow",
- "arboard",
- "axum",
- "bytes",
- "chrono",
- "crc32fast",
- "dirs 7.0.0",
- "flate2",
- "fs4",
- "futures-util",
- "getrandom 0.4.3",
- "hex 0.4.3",
- "objc2-app-kit",
- "objc2-foundation",
- "parking_lot",
- "percent-encoding",
- "prism-engine",
- "prism-testserver",
- "prism-torrent",
- "prism-video",
- "regex",
- "reqwest",
- "rusqlite",
- "scraper",
- "serde",
- "serde_json",
- "sha2 0.11.1",
- "tempfile",
- "thiserror 2.0.21",
- "tokio",
- "tokio-util",
- "tracing",
- "url",
- "uuid",
- "windows-sys 0.61.2",
- "winreg 0.56.0",
- "zip 9.0.3",
-]
-
-[[package]]
-name = "prism-engine"
-version = "1.2.7"
-dependencies = [
- "aes",
- "base64 0.22.1",
- "bytes",
- "cbc",
- "dash-mpd-core",
- "fastrand",
- "fs4",
- "futures-util",
- "http-auth",
- "libunftp",
- "m3u8-rs",
- "md-5 0.11.0",
- "mime_guess",
- "ntlmclient",
- "percent-encoding",
- "prism-testserver",
- "reqwest",
- "rustix",
- "rustls",
- "rustls-platform-verifier",
- "serde",
- "serde_json",
- "sha1",
- "sha2 0.11.1",
- "suppaftp",
- "tempfile",
- "thiserror 2.0.21",
- "tokio",
- "tokio-rustls",
- "tokio-util",
- "tracing",
- "tracing-subscriber",
- "unftp-sbe-fs",
- "url",
- "uuid",
- "windows-sys 0.61.2",
-]
-
-[[package]]
-name = "prism-native-host"
-version = "1.2.7"
-dependencies = [
- "serde",
- "serde_json",
- "static_vcruntime",
- "tempfile",
- "thiserror 2.0.21",
- "ureq",
- "winreg 0.55.0",
-]
-
-[[package]]
-name = "prism-testserver"
-version = "1.2.7"
-dependencies = [
- "aes",
- "base64 0.22.1",
- "bytes",
- "cbc",
- "fastrand",
- "futures-util",
- "http-body",
- "http-body-util",
- "hyper",
- "hyper-util",
- "md-5 0.11.0",
- "percent-encoding",
- "sha2 0.11.1",
- "tokio",
- "url",
-]
-
-[[package]]
-name = "prism-torrent"
-version = "1.2.7"
-dependencies = [
- "anyhow",
- "bytes",
- "librqbit",
- "serde",
- "serde_json",
- "sha1",
- "tempfile",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "prism-video"
-version = "1.2.7"
-dependencies = [
- "bytes",
- "chrono",
- "futures-util",
- "lzma-rust2",
- "reqwest",
- "serde",
- "serde_json",
- "sha2 0.11.1",
- "tar",
- "tempfile",
- "thiserror 2.0.21",
- "tokio",
- "tokio-util",
- "tracing",
- "url",
- "windows-sys 0.61.2",
- "zip 9.0.3",
-]
 
 [[package]]
 name = "proc-macro-crate"

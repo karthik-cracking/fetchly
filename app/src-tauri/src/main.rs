@@ -11,9 +11,9 @@ mod tray;
 mod updates;
 mod windows;
 
-use prism_core::events::{CaptureSource, CoreEvent};
-use prism_core::manager::{Core, CoreOptions, NewItem};
-use prism_core::settings::Settings;
+use fetchly_core::events::{CaptureSource, CoreEvent};
+use fetchly_core::manager::{Core, CoreOptions, NewItem};
+use fetchly_core::settings::Settings;
 use std::sync::atomic::{AtomicBool, Ordering};
 use tauri::{AppHandle, Emitter, Manager, RunEvent, WindowEvent};
 use tauri_plugin_notification::NotificationExt;
@@ -34,9 +34,9 @@ fn main() {
         .any(|a| a == "--background" || a == "--minimized");
     STARTED_IN_BACKGROUND.store(background, std::sync::atomic::Ordering::Relaxed);
     let _log_guard = init_logging();
-    match prism_core::platform::desktop_session() {
-        Some(session) => tracing::info!(%session, "Prism {} starting", prism_core::APP_VERSION),
-        None => tracing::info!("Prism {} starting", prism_core::APP_VERSION),
+    match fetchly_core::platform::desktop_session() {
+        Some(session) => tracing::info!(%session, "Prism {} starting", fetchly_core::APP_VERSION),
+        None => tracing::info!("Prism {} starting", fetchly_core::APP_VERSION),
     }
     // Release builds have no console: make sure a panic always reaches the log file.
     let default_hook = std::panic::take_hook();
@@ -389,11 +389,11 @@ fn windows_build() -> Option<u32> {
 /// Dark or light Mica behind the window. With the theme following the system, it follows what
 /// Windows uses (#21: a light Windows used to get the dark Mica under the light theme).
 #[cfg_attr(not(target_os = "windows"), allow(dead_code))]
-fn mica_dark(theme: prism_core::settings::Theme, system: Option<tauri::Theme>) -> bool {
+fn mica_dark(theme: fetchly_core::settings::Theme, system: Option<tauri::Theme>) -> bool {
     match theme {
-        prism_core::settings::Theme::Light => false,
-        prism_core::settings::Theme::Dark => true,
-        prism_core::settings::Theme::System => !matches!(system, Some(tauri::Theme::Light)),
+        fetchly_core::settings::Theme::Light => false,
+        fetchly_core::settings::Theme::Dark => true,
+        fetchly_core::settings::Theme::System => !matches!(system, Some(tauri::Theme::Light)),
     }
 }
 
@@ -546,8 +546,8 @@ fn spawn_event_forwarder(app: AppHandle, core: Core) {
 }
 
 /// A file of a Hugging Face model downloading in its queue (no window per file).
-fn in_model_queue(item: &prism_core::model::DownloadItem) -> bool {
-    item.queue_id.as_deref() == Some(prism_core::huggingface::QUEUE_ID)
+fn in_model_queue(item: &fetchly_core::model::DownloadItem) -> bool {
+    item.queue_id.as_deref() == Some(fetchly_core::huggingface::QUEUE_ID)
 }
 
 /// Opens the item's progress window the first time it's seen active, when the setting is on.
@@ -556,7 +556,7 @@ fn maybe_open_progress_window(
     app: &AppHandle,
     settings: &Settings,
     opened_progress: &mut std::collections::HashSet<String>,
-    item: &prism_core::model::DownloadItem,
+    item: &fetchly_core::model::DownloadItem,
 ) {
     if item.status.is_active() {
         if settings.general.show_progress_window
@@ -567,7 +567,7 @@ fn maybe_open_progress_window(
             tracing::error!("could not open the progress window: {e}");
         }
     } else if opened_progress.remove(&item.id)
-        && item.status == prism_core::model::Status::Completed
+        && item.status == fetchly_core::model::Status::Completed
     {
         // The completion dialog takes over; no reason to leave the popup open too.
         windows::close_progress(app, &item.id);
@@ -663,7 +663,7 @@ fn side_effects(
         }
         CoreEvent::MediaJob(job) => {
             // A long conversion that finished while nobody was looking at Prism.
-            use prism_core::media::{JobState, MediaOp};
+            use fetchly_core::media::{JobState, MediaOp};
             let took = job.finished_at.zip(job.started_at).map(|(b, a)| b - a);
             let looking = app
                 .webview_windows()
@@ -725,7 +725,7 @@ fn side_effects(
             } else {
                 let entries = urls
                     .iter()
-                    .map(|u| prism_core::events::BatchEntry {
+                    .map(|u| fetchly_core::events::BatchEntry {
                         url: u.clone(),
                         ..Default::default()
                     })
@@ -764,7 +764,7 @@ fn side_effects(
 
 fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
     use tracing_subscriber::{EnvFilter, fmt, prelude::*};
-    let dir = prism_core::paths::logs_dir();
+    let dir = fetchly_core::paths::logs_dir();
     std::fs::create_dir_all(&dir).ok()?;
     let appender = tracing_appender::rolling::Builder::new()
         .rotation(tracing_appender::rolling::Rotation::DAILY)
@@ -776,7 +776,7 @@ fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
     let (writer, guard) = tracing_appender::non_blocking(appender);
     let filter = EnvFilter::try_from_env("PRISM_LOG").unwrap_or_else(|_| {
         EnvFilter::new(
-            "info,prism_core=info,prism_engine=info,hyper=warn,reqwest=warn,librqbit=warn",
+            "info,fetchly_core=info,fetchly_engine=info,hyper=warn,reqwest=warn,librqbit=warn",
         )
     });
     tracing_subscriber::registry()
@@ -790,7 +790,7 @@ fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
 #[cfg(test)]
 mod tests {
     use super::{mica_dark, open_targets};
-    use prism_core::settings::Theme;
+    use fetchly_core::settings::Theme;
 
     #[test]
     fn mica_follows_the_theme() {

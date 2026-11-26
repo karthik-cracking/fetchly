@@ -2,7 +2,7 @@
 //!
 //! Every window loads the same SPA; the hash route (`#/capture/<id>`) selects the view.
 
-use prism_core::manager::Core;
+use fetchly_core::manager::Core;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;

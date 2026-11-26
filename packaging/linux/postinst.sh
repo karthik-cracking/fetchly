@@ -3,9 +3,9 @@
 # can reach the app. (The app also registers per-user manifests on every start, which
 # covers Brave, Vivaldi, Opera and custom profiles.)
 set -e
-HOST=/usr/bin/prism-native-host
+HOST=/usr/bin/fetchly-native-host
 CHROME_ID=mmcdeiglkbfbicdjboocmhehodogilfl
-# Must match prism-native-host (CHROME_EXTENSION_ID, FIREFOX_EXTENSION_ID); a test checks it.
+# Must match fetchly-native-host (CHROME_EXTENSION_ID, FIREFOX_EXTENSION_ID); a test checks it.
 FIREFOX_ID=prism@prismdl.site
 
 chromium_manifest() {

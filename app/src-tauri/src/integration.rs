@@ -1,6 +1,6 @@
 //! Browser integration: native messaging host registration and status.
 
-use prism_native_host::registration::{self, Browser, Locations, RegisterOptions};
+use fetchly_native_host::registration::{self, Browser, Locations, RegisterOptions};
 use std::path::PathBuf;
 use tauri::{AppHandle, Manager};
 
@@ -8,9 +8,9 @@ use tauri::{AppHandle, Manager};
 pub fn bundled_host_path() -> PathBuf {
     let exe = std::env::current_exe().unwrap_or_default();
     let name = if cfg!(windows) {
-        "prism-native-host.exe"
+        "fetchly-native-host.exe"
     } else {
-        "prism-native-host"
+        "fetchly-native-host"
     };
     exe.parent()
         .map(|d| d.join(name))
@@ -23,8 +23,8 @@ pub fn bundled_host_path() -> PathBuf {
 pub fn host_path() -> PathBuf {
     let bundled = bundled_host_path();
     if let Some(appimage) = std::env::var_os("APPIMAGE") {
-        let data = prism_core::paths::data_dir();
-        let stable = data.join("bin").join("prism-native-host");
+        let data = fetchly_core::paths::data_dir();
+        let stable = data.join("bin").join("fetchly-native-host");
         let copy = || -> std::io::Result<()> {
             std::fs::create_dir_all(data.join("bin"))?;
             let needs_copy = std::fs::metadata(&stable).map(|m| m.len()).ok()
@@ -61,8 +61,8 @@ pub fn status() -> serde_json::Value {
         "hostPath": host,
         "hostExists": host.exists(),
         "browsers": browsers,
-        "extensionId": prism_native_host::CHROME_EXTENSION_ID,
-        "firefoxExtensionId": prism_native_host::FIREFOX_EXTENSION_ID,
+        "extensionId": fetchly_native_host::CHROME_EXTENSION_ID,
+        "firefoxExtensionId": fetchly_native_host::FIREFOX_EXTENSION_ID,
     })
 }
 
@@ -109,7 +109,7 @@ pub fn extension_folder(app: &AppHandle, firefox: bool) -> Option<PathBuf> {
 fn extension_copy_root() -> Option<PathBuf> {
     let copy = cfg!(target_os = "macos")
         || (cfg!(target_os = "linux") && std::env::var_os("APPIMAGE").is_some());
-    copy.then(|| prism_core::paths::data_dir().join("extension"))
+    copy.then(|| fetchly_core::paths::data_dir().join("extension"))
 }
 
 /// Refresh the extension copies that exist (see `extension_copy_root`) on every start, so an

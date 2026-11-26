@@ -15,9 +15,9 @@ path = "src/main.rs"
 tauri-build = { version = "2.7", features = [] }
 
 [dependencies]
-prism-core = { workspace = true }
-prism-native-host = { path = "../../crates/prism-native-host" }
-prism-torrent = { path = "../../crates/prism-torrent" }
+fetchly-core = { workspace = true }
+fetchly-native-host = { path = "../../crates/fetchly-native-host" }
+fetchly-torrent = { path = "../../crates/fetchly-torrent" }
 tauri = { version = "2.12", features = ["tray-icon", "image-png", "macos-private-api"] }
 tauri-plugin-single-instance = "2.5"
 tauri-plugin-notification = "2.6"

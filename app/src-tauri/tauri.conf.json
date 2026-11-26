@@ -58,7 +58,7 @@
       "icons/icon.ico"
     ],
     "externalBin": [
-      "binaries/prism-native-host"
+      "binaries/fetchly-native-host"
     ],
     "fileAssociations": [
       {
@@ -82,7 +82,7 @@
           "../../packaging/windows/native-host.wxs"
         ],
         "componentRefs": [
-          "PrismNativeHostRegistration"
+          "FetchlyNativeHostRegistration"
         ]
       }
     },

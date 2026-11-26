@@ -101,7 +101,7 @@ fn players(path: &Path, volume: f32) -> Vec<(&'static str, Vec<String>)> {
 /// Writes the sound next to Prism's data the first time it's needed.
 fn sound_path(name: &str) -> Option<PathBuf> {
     let bytes = SOUNDS.iter().find(|(n, _)| *n == name)?.1;
-    let dir = prism_core::paths::data_dir().join("sounds");
+    let dir = fetchly_core::paths::data_dir().join("sounds");
     let path = dir.join(format!("{name}.wav"));
     let current = std::fs::metadata(&path).is_ok_and(|m| m.len() == bytes.len() as u64);
     if !current {

@@ -1,12 +1,12 @@
 [workspace]
 resolver = "3"
 members = [
-  "crates/prism-engine",
-  "crates/prism-core",
-  "crates/prism-native-host",
-  "crates/prism-testserver",
-  "crates/prism-video",
-  "crates/prism-torrent",
+  "crates/fetchly-engine",
+  "crates/fetchly-core",
+  "crates/fetchly-native-host",
+  "crates/fetchly-testserver",
+  "crates/fetchly-video",
+  "crates/fetchly-torrent",
   "app/src-tauri",
 ]
 
@@ -39,9 +39,9 @@ tempfile = "3"
 sha2 = "0.11"
 sha1 = "0.11"
 md-5 = "0.11"
-prism-engine = { path = "crates/prism-engine" }
-prism-core = { path = "crates/prism-core" }
-prism-video = { path = "crates/prism-video" }
+fetchly-engine = { path = "crates/fetchly-engine" }
+fetchly-core = { path = "crates/fetchly-core" }
+fetchly-video = { path = "crates/fetchly-video" }
 
 [profile.release]
 lto = "thin"
