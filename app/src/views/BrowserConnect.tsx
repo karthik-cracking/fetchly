@@ -36,10 +36,9 @@ const PAGE: Record<string, string> = {
 /** Firefox-based browsers: Firefox's extension, from Firefox Add-ons. */
 const FIREFOX_FAMILY = ["firefox", "zen", "waterfox"];
 
-/** Prism's extension in the Chrome Web Store: Chrome, Edge, Brave, Opera, Vivaldi, Helium and Chromium install it from there. */
-export const EXTENSION_STORE_URL = "https://chromewebstore.google.com/detail/prism-download-manager/mmcdeiglkbfbicdjboocmhehodogilfl";
-/** Prism's add-on in Firefox Add-ons: Firefox and Zen install it from there. */
-export const FIREFOX_ADDON_URL = "https://addons.mozilla.org/firefox/addon/prism-download-manager/";
+/** Fetchly extension / releases page until Chrome Web Store & Firefox Add-ons listings are published. */
+export const EXTENSION_STORE_URL = "https://github.com/karthik-cracking/fetchly/releases/latest";
+export const FIREFOX_ADDON_URL = "https://github.com/karthik-cracking/fetchly/releases/latest";
 /** The store's install button as each browser labels it (Chrome's label elsewhere). */
 const ADD_LABEL: Record<string, string> = { brave: "Add to Brave", opera: "Add to Opera" };
 

@@ -133,12 +133,12 @@ pub fn open_browser(browser: &str) -> Result<(), String> {
     launch(browser, None).map_err(|e| format!("Could not start the browser: {e}"))
 }
 
-/// Prism's extension in the Chrome Web Store (Chrome, Edge, Brave, Opera, Vivaldi, Chromium).
-pub const EXTENSION_STORE_URL: &str = "https://chromewebstore.google.com/detail/prism-download-manager/mmcdeiglkbfbicdjboocmhehodogilfl";
+/// Fetchly's extension / releases page (replace with Chrome Web Store URL once published).
+pub const EXTENSION_STORE_URL: &str = "https://github.com/karthik-cracking/fetchly/releases/latest";
 
-/// Prism's add-on in Firefox Add-ons (Firefox, Zen, Waterfox).
+/// Fetchly's add-on / releases page (replace with Firefox Add-ons URL once published).
 pub const FIREFOX_ADDON_URL: &str =
-    "https://addons.mozilla.org/firefox/addon/prism-download-manager/";
+    "https://github.com/karthik-cracking/fetchly/releases/latest";
 
 /// Where `browser` gets Prism's extension: Firefox Add-ons for Firefox, Zen and Waterfox, else the Chrome
 /// Web Store.

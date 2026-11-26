@@ -188,9 +188,9 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
       const noTray = s.general.hideTrayIcon;
       return (
         <>
-          <p className="lead">{t("How Prism starts and behaves in the background.")}</p>
+          <p className="lead">{t("How Fetchly starts and behaves in the background.")}</p>
           <Group title={t("Language")}>
-            <Row title={t("Language")} hint={t("Prism follows your system's language unless you pick one here")}>
+            <Row title={t("Language")} hint={t("Fetchly follows your system's language unless you pick one here")}>
               <Select
                 label={t("Language")}
                 value={s.general.language}
@@ -219,12 +219,12 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
             />
             <Toggle
               title={mac ? t("Hide the menu bar icon") : t("Hide the tray icon")}
-              hint={mac ? t("No menu bar icon; start Prism again to open its window.") : t("No tray icon; start Prism again to open its window.")}
+              hint={mac ? t("No menu bar icon; start Fetchly again to open its window.") : t("No tray icon; start Fetchly again to open its window.")}
               value={s.general.hideTrayIcon}
               onChange={(v) => save({ general: { hideTrayIcon: v } })}
             />
             {mac && (
-              <Toggle title={t("Hide the Dock icon")} hint={t("While Prism waits in the menu bar. The icon is back while its window is open")} value={s.general.hideDockIcon} onChange={(v) => save({ general: { hideDockIcon: v } })} />
+              <Toggle title={t("Hide the Dock icon")} hint={t("While Fetchly waits in the menu bar. The icon is back while its window is open")} value={s.general.hideDockIcon} onChange={(v) => save({ general: { hideDockIcon: v } })} />
             )}
           </Group>
           <Group title={t("Windows")}>
@@ -245,7 +245,7 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
                 if (v) void api.removeDeletedFiles().catch(() => {});
               }}
             />
-            <Toggle title={t("Check for updates automatically")} hint={t("Prism asks before installing; it restarts by itself and your downloads continue")} value={s.general.checkUpdates} onChange={(v) => save({ general: { checkUpdates: v } })} />
+            <Toggle title={t("Check for updates automatically")} hint={t("Fetchly asks before installing; it restarts by itself and your downloads continue")} value={s.general.checkUpdates} onChange={(v) => save({ general: { checkUpdates: v } })} />
           </Group>
           <Group title={t("Clipboard")}>
             <Toggle title={t("Watch the clipboard for links")} value={s.clipboard.monitor} onChange={(v) => save({ clipboard: { monitor: v } })} />
@@ -281,7 +281,7 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
             </Row>
           </Group>
           <Group title={t("Engine")}>
-            <Row title={t("Connections per download")} hint={t("Prism splits files into this many segments (work-stealing keeps all busy)")}>
+            <Row title={t("Connections per download")} hint={t("Fetchly splits files into this many segments (work-stealing keeps all busy)")}>
               <NumberField value={s.downloads.defaultConnections} min={1} max={s.downloads.maxConnections} label={t("Connections per download")} onCommit={(v) => save({ downloads: { defaultConnections: v } })} width={90} />
             </Row>
             <Row title={t("Maximum connections")}>
@@ -317,7 +317,7 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
           <Row title={t("Read timeout")}>
             <NumberField value={s.connection.readTimeoutSecs} min={1} max={600} suffix="s" label={t("Read timeout")} onCommit={(v) => save({ connection: { readTimeoutSecs: v } })} width={90} />
           </Row>
-          <Row title={t("Connections per server")} hint={t("0 = no limit; Prism also learns limits servers enforce")}>
+          <Row title={t("Connections per server")} hint={t("0 = no limit; Fetchly also learns limits servers enforce")}>
             <NumberField value={s.connection.maxConnectionsPerHost} min={0} max={64} label={t("Connections per server")} onCommit={(v) => save({ connection: { maxConnectionsPerHost: v } })} width={90} />
           </Row>
           <Row title={t("User agent")} hint={t("Empty = a current Chrome user agent")}>
@@ -418,7 +418,7 @@ function SectionBody({ id, s }: { id: string; s: Settings }) {
       return (
         <>
           <Group title={t("Notifications")}>
-            <Toggle title={t("System notifications")} hint={t("When downloads finish or fail while Prism is in the background")} value={s.general.notifications} onChange={(v) => save({ general: { notifications: v } })} />
+            <Toggle title={t("System notifications")} hint={t("When downloads finish or fail while Fetchly is in the background")} value={s.general.notifications} onChange={(v) => save({ general: { notifications: v } })} />
           </Group>
           <Group title={t("Sounds")}>
             <Toggle title={t("Play sounds")} value={s.sounds.enabled} onChange={(v) => save({ sounds: { enabled: v } })} />
@@ -516,7 +516,7 @@ function Appearance({ s }: { s: Settings }) {
   ] as const;
   return (
     <>
-      <p className="lead">{t("Changes apply instantly. Prism follows your system theme unless you pick one.")}</p>
+      <p className="lead">{t("Changes apply instantly. Fetchly follows your system theme unless you pick one.")}</p>
       <Group title={t("Theme")}>
         <div className="themes">
           {themes.map(([v, label, cls]) => (
@@ -669,7 +669,7 @@ export function IntegrationList({ status }: { status: IntegrationStatus | null }
             <Icon name="browser" size={18} className={b.installed ? "" : "text-tertiary"} />
             <div className="srow__txt">
               <div className="srow__t1">{b.name ?? b.browser}</div>
-              <div className="srow__t2">{!b.installed ? t("Not installed") : ok ? t("Native messaging host registered") : b.registered ? t("Registered for another Prism copy") : t("Not registered")}</div>
+              <div className="srow__t2">{!b.installed ? t("Not installed") : ok ? t("Native messaging host registered") : b.registered ? t("Registered for another Fetchly copy") : t("Not registered")}</div>
             </div>
             {b.installed && (
               <span className={`badge ${ok ? "badge--success" : "badge--warning"}`}>
@@ -689,13 +689,13 @@ function BrowserIntegration() {
   const live = useExtensionStatus();
   return (
     <>
-      <p className="lead">{t("The Prism extension hands downloads and videos to this app through a native messaging host.")}</p>
+      <p className="lead">{t("The Fetchly extension hands downloads and videos to this app through a native messaging host.")}</p>
       <div className={`banner ${status?.extensionConnected && !status.extensionOutdated ? "banner--ok" : "banner--warn"}`}>
         <Icon name={status?.extensionConnected && !status.extensionOutdated ? "status-completed" : "warning"} size={18} />
         <div>
           <b>
             {status?.extensionOutdated
-              ? t("The browser runs an older extension ({version}, Prism is {appVersion})", { version: status.extensionVersion ?? "", appVersion: status.appVersion ?? "" })
+              ? t("The browser runs an older extension ({version}, Fetchly is {appVersion})", { version: status.extensionVersion ?? "", appVersion: status.appVersion ?? "" })
               : status?.extensionConnected
                 ? `${t("Extension connected")}${status.extensionVersion ? ` · ${status.extensionVersion}` : ""}`
                 : t("Extension not seen recently")}
@@ -703,8 +703,8 @@ function BrowserIntegration() {
           <div className="t-small">
             {status?.extensionOutdated
               ? status.extensionInstallType === "development"
-                ? t("This one was added by hand and doesn't update by itself. Prism's extension is now in the Chrome Web Store: remove this one and add it from the store (steps below).")
-                : t("Browsers don't reload an unpacked extension's files by themselves. Click ↻ Reload next to Prism on the extensions page, or restart the browser; if it stays old, remove it and load it again from the folder below.")
+                ? t("This one was added by hand and doesn't update by itself. Fetchly's extension is available from the Chrome Web Store: remove this one and add it from the store (steps below).")
+                : t("Browsers don't reload an unpacked extension's files by themselves. Click ↻ Reload next to Fetchly on the extensions page, or restart the browser; if it stays old, remove it and load it again from the folder below.")
               : status?.lastSeen
                 ? t("Last message {date}", { date: formatDate(status.lastSeen) })
                 : t("Install the extension, then open any web page.")}
@@ -742,7 +742,7 @@ function Models({ s }: { s: Settings }) {
   return (
     <>
       <Group title={t("Hugging Face")}>
-        <Row title={t("Download a model")} hint={t("Find a model by its name, a link or a search. Prism picks the files worth downloading and they download one after another, each over many connections.")}>
+        <Row title={t("Download a model")} hint={t("Find a model by its name, a link or a search. Fetchly picks the files worth downloading and they download one after another, each over many connections.")}>
           <button type="button" className="btn" onClick={() => void attempt(api.openWindow("model"))}>
             <Icon name="model" size={15} /> {t("Open…")}
           </button>
@@ -877,7 +877,7 @@ function Video({ s }: { s: Settings }) {
             ]}
           />
         </Row>
-        <Toggle title={t("Accelerate with Prism’s engine")} hint={t("Multi-connection download of direct formats, then merge with ffmpeg")} value={s.video.accelerate} onChange={(v) => save({ video: { accelerate: v } })} />
+        <Toggle title={t("Accelerate with Fetchly’s engine")} hint={t("Multi-connection download of direct formats, then merge with ffmpeg")} value={s.video.accelerate} onChange={(v) => save({ video: { accelerate: v } })} />
         <Row title={t("Cookies from browser")} hint={t("Lets yt-dlp access age-restricted / member videos. On Windows, Chrome and Edge lock their cookies while open: Firefox works best")}>
           <Select
             label={t("Cookies from browser")}
@@ -893,7 +893,7 @@ function Video({ s }: { s: Settings }) {
         <Toggle title={t("Number playlist videos")} hint={t("Starts each file name with the video's position in the playlist: 01 - Title")} value={s.video.numberPlaylistVideos} onChange={(v) => save({ video: { numberPlaylistVideos: v } })} />
       </Group>
       <Group title={t("Custom tool paths")}>
-        <Row title="yt-dlp" hint={t("Empty = managed by Prism")}>
+        <Row title="yt-dlp" hint={t("Empty = managed by Fetchly")}>
           <TextField value={s.video.ytdlpPath} onCommit={(v) => save({ video: { ytdlpPath: v } })} label={t("yt-dlp path")} mono placeholder={t("Managed")} />
         </Row>
         <Row title="ffmpeg" hint={t("Empty = managed / system")}>
@@ -932,7 +932,7 @@ function Advanced({ s }: { s: Settings }) {
   const date = new Date().toISOString().slice(0, 10);
   const json = [{ name: "JSON", extensions: ["json"] }];
   const exp = async (kind: "list" | "settings" | "diagnostics") => {
-    const name = kind === "list" ? `prism-downloads-${date}.json` : kind === "settings" ? `prism-settings-${date}.json` : `prism-diagnostics-${date}.zip`;
+    const name = kind === "list" ? `fetchly-downloads-${date}.json` : kind === "settings" ? `fetchly-settings-${date}.json` : `fetchly-diagnostics-${date}.zip`;
     const path = await pickSavePath(name, kind === "diagnostics" ? [{ name: "Zip", extensions: ["zip"] }] : json);
     if (!path) return;
     const job = kind === "list" ? api.exportList(path) : kind === "settings" ? api.exportSettings(path) : api.exportDiagnostics(path);

@@ -28,7 +28,7 @@ const CHANGES: Change[] = [
   {
     icon: "video",
     title: tk("Just a part of a video"),
-    body: tk("Pick a quality with the Download button next to a video, or open the “Download video” window in Prism, and choose “Only a part”: where it starts and ends, or a chapter. Prism downloads only that part."),
+    body: tk("Pick a quality with the Download button next to a video, or open the “Download video” window in Fetchly, and choose “Only a part”: where it starts and ends, or a chapter. Fetchly downloads only that part."),
   },
   {
     icon: "file-archive",
@@ -52,13 +52,13 @@ const PREVIOUS = { version: "1.1.8", changes: [
   },
   {
     icon: "monitor",
-    title: tk("Prism on Linux"),
-    body: tk("On KDE Plasma, a window brought back from the taskbar no longer stays empty, and Prism gives memory back after long downloads."),
+    title: tk("Fetchly on Linux"),
+    body: tk("On KDE Plasma, a window brought back from the taskbar no longer stays empty, and Fetchly gives memory back after long downloads."),
   },
   {
     icon: "eye",
     title: tk("Dock icon on the Mac"),
-    body: tk("Prism can hide its Dock icon while it waits in the menu bar: Settings › General."),
+    body: tk("Fetchly can hide its Dock icon while it waits in the menu bar: Settings › General."),
     credit: "mehdiillala",
   },
 ] satisfies Change[] };
@@ -76,7 +76,7 @@ export function WhatsNewSheet() {
       <header className="whatsnew__head">
         <BrandTile size={52} />
         <div>
-          <h2>{t("Prism {version} is here", { version })}</h2>
+          <h2>{t("Fetchly {version} is here", { version })}</h2>
           <p className="text-secondary">{t("Convert and make smaller, just a part of a video, and a look inside ZIP files.")}</p>
         </div>
       </header>
@@ -85,9 +85,9 @@ export function WhatsNewSheet() {
         <div className="whatsnew__storehead">
           <Icon name="puzzle" size={18} className="text-accent" />
           <div>
-            <b>{t("Add Prism to your browser in one click")}</b>
+            <b>{t("Add Fetchly to your browser in one click")}</b>
             <div className="t-small text-secondary">
-              {t("From the Chrome Web Store, for Chrome, Edge, Brave, Opera, Vivaldi and Helium. It updates by itself, so there's nothing to reload after a Prism update.")}
+              {t("From the Chrome Web Store, for Chrome, Edge, Brave, Opera, Vivaldi and Helium. It updates by itself, so there's nothing to reload after a Fetchly update.")}
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function WhatsNewSheet() {
               <Icon name="check" size={16} strokeWidth={2.4} />
             </span>
             <div>
-              <b>{t("You're all set.")}</b> {t("Your browser runs Prism from the Chrome Web Store.")}
+              <b>{t("You're all set.")}</b> {t("Your browser runs Fetchly from the Chrome Web Store.")}
             </div>
           </div>
         ) : (
@@ -106,12 +106,12 @@ export function WhatsNewSheet() {
       </section>
 
       <ChangeList changes={CHANGES} />
-      <h3 className="whatsnew__older t-small text-tertiary">{t("New in Prism {version}", { version: PREVIOUS.version })}</h3>
+      <h3 className="whatsnew__older t-small text-tertiary">{t("New in Fetchly {version}", { version: PREVIOUS.version })}</h3>
       <ChangeList changes={PREVIOUS.changes} />
       <p className="whatsnew__star t-small text-secondary">
         <Icon name="star" size={14} className="text-accent" />
         <span>
-          {t("Enjoying Prism? A star on GitHub helps more people find it.")}{" "}
+          {t("Enjoying Fetchly? A star on GitHub helps more people find it.")}{" "}
           <button type="button" className="linkbtn" onClick={() => void openUrl(REPO_URL)}>
             {t("Star on GitHub")}
           </button>
