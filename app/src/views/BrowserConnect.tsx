@@ -70,7 +70,7 @@ function pickDefault(browsers: BrowserIntegration[]): string {
 }
 
 /**
- * Step-by-step guide that gets the browser extension installed: pick your browser, open Prism in
+ * Step-by-step guide that gets the browser extension installed: pick your browser, open Fetchly in
  * the Chrome Web Store (Firefox and Zen: Firefox Add-ons) and add it — with a live check that
  * turns green the moment the extension connects. Adding it by hand stays one click away.
  *
@@ -86,13 +86,13 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
   const [browser, setBrowser] = useState<string | null>(null);
   const current = browser ?? (status ? pickDefault(status.browsers) : "chrome");
   const firefox = FIREFOX_FAMILY.includes(current);
-  // "Prefer to add it by hand?" (below the store guide): the unpacked extension Prism ships.
+  // "Prefer to add it by hand?" (below the store guide): the unpacked extension Fetchly ships.
   const [byHand, setByHand] = useState(false);
   const [folder, setFolder] = useState<string | null>(null);
   useEffect(() => {
     if (byHand) void api.extensionFolder(firefox).then(setFolder, () => setFolder(null));
   }, [firefox, byHand]);
-  // A Prism extension someone loaded by hand earlier ("Load unpacked"): the store version
+  // A Fetchly extension someone loaded by hand earlier ("Load unpacked"): the store version
   // updates by itself, but the browser won't add it while the old one is still installed.
   const manual = !firefox && !byHand && status?.extensionInstallType === "development";
   // Store steps start after the "remove the copy added by hand" step when that one shows.
@@ -167,9 +167,9 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
           <li className="bstep">
             <span className="bstep__n">1</span>
             <div className="bstep__txt">
-              <div className="bstep__t">{t("Remove the Prism you added by hand")}</div>
+              <div className="bstep__t">{t("Remove the Fetchly you added by hand")}</div>
               <div className="bstep__d">
-                {tr("The store version updates by itself. On {address} click {button} under Prism. The button copies the address and opens {browser}.", {
+                {tr("The store version updates by itself. On {address} click {button} under Fetchly. The button copies the address and opens {browser}.", {
                   address: <code className="selectable">{PAGE[current]}</code>,
                   button: <b>Remove</b>,
                   browser: name,
@@ -184,7 +184,7 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
         <li className="bstep">
           <span className="bstep__n">{step + 1}</span>
           <div className="bstep__txt">
-            <div className="bstep__t">{firefox ? t("Open Prism in Firefox Add-ons") : t("Open Prism in the Chrome Web Store")}</div>
+            <div className="bstep__t">{firefox ? t("Open Fetchly in Firefox Add-ons") : t("Open Fetchly in the Chrome Web Store")}</div>
             <div className="bstep__d">
               {current === "edge"
                 ? t("Edge asks once to allow extensions from other stores: click {button} at the top of the page.", { button: "Allow" })
@@ -212,7 +212,7 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
           <span className="bstep__n">{step + 3}</span>
           <div className="bstep__txt">
             <div className="bstep__t">{t("Confirm with “{button}”", { button: firefox ? "Add" : "Add extension" })}</div>
-            <div className="bstep__d">{t("{browser} asks once whether to add Prism. From then on it updates Prism by itself.", { browser: name })}</div>
+            <div className="bstep__d">{t("{browser} asks once whether to add Fetchly. From then on it updates Fetchly by itself.", { browser: name })}</div>
           </div>
           <FakeButton label={firefox ? "Add" : "Add extension"} />
         </li>
@@ -220,8 +220,8 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
           <li className="bstep">
             <span className="bstep__n">{step + 4}</span>
             <div className="bstep__txt">
-              <div className="bstep__t">{t("Pin Prism next to the address bar")}</div>
-              <div className="bstep__d">{t("Click the puzzle icon, then the pin next to Prism. The check below turns green as soon as it's connected.")}</div>
+              <div className="bstep__t">{t("Pin Fetchly next to the address bar")}</div>
+              <div className="bstep__d">{t("Click the puzzle icon, then the pin next to Fetchly. The check below turns green as soon as it's connected.")}</div>
             </div>
             <FakeButton label={t("Pin")} icon="pin" />
           </li>
@@ -242,8 +242,8 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
               <Icon name="check" size={16} strokeWidth={2.4} />
             </span>
             <div>
-              <b>{t("Connected!")}</b> {t("Downloads and videos from your browser now open in Prism.")}
-              <div className="bstatus__sub">{t("Tip: pin the Prism icon next to the address bar (puzzle icon → pin).")}</div>
+              <b>{t("Connected!")}</b> {t("Downloads and videos from your browser now open in Fetchly.")}
+              <div className="bstatus__sub">{t("Tip: pin the Fetchly icon next to the address bar (puzzle icon → pin).")}</div>
             </div>
           </motion.div>
         ) : (
@@ -297,7 +297,7 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
               <li className="bstep bstep--wide">
                 <span className="bstep__n">3</span>
                 <div className="bstep__txt">
-                  <div className="bstep__t">{t("Pick manifest.json in the Prism folder")}</div>
+                  <div className="bstep__t">{t("Pick manifest.json in the Fetchly folder")}</div>
                   <div className="bstep__d">{pasteHint}</div>
                 </div>
                 <div className="howto__path bstep__full">
@@ -318,7 +318,7 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
         {byHand && !firefox && (
           <>
             <p className="t-small text-tertiary">
-              {t("Without the store: load the folder Prism keeps up to date. A copy added this way doesn't update by itself — after a Prism update, click ↻ next to Prism on the extensions page.")}
+              {t("Without the store: load the folder Fetchly keeps up to date. A copy added this way doesn't update by itself — after a Fetchly update, click ↻ next to Fetchly on the extensions page.")}
             </p>
             <ol className="bsteps">
               <li className="bstep">
@@ -344,7 +344,7 @@ export function BrowserConnect({ status, connected, hideOwnStatus }: { status: I
               <li className="bstep bstep--wide">
                 <span className="bstep__n">3</span>
                 <div className="bstep__txt">
-                  <div className="bstep__t">{t("Click “{button}” and choose the Prism folder", { button: "Load unpacked" })}</div>
+                  <div className="bstep__t">{t("Click “{button}” and choose the Fetchly folder", { button: "Load unpacked" })}</div>
                   <div className="bstep__d">{pasteHint}</div>
                 </div>
                 <FakeButton label="Load unpacked" />
@@ -453,24 +453,24 @@ export function ConnectBanner({ onOpen }: { onOpen: () => void }) {
               {outdated ? (
                 status?.extensionInstallType === "development" ? (
                   <span className="cbanner__txt">
-                    <b>{t("Prism's extension is now in the Chrome Web Store.")}</b>{" "}
+                    <b>{t("Fetchly's extension is now in the Chrome Web Store.")}</b>{" "}
                     {t("Yours ({version}) was added by hand and won't update by itself: switch to the store version, it takes a minute.", { version: status?.extensionVersion ?? "" })}
                   </span>
                 ) : (
                   <span className="cbanner__txt">
-                    {tr("{older} ({version}, Prism is {appVersion}).", {
-                      older: <b>{t("Your browser still runs an older Prism extension")}</b>,
+                    {tr("{older} ({version}, Fetchly is {appVersion}).", {
+                      older: <b>{t("Your browser still runs an older Fetchly extension")}</b>,
                       version: status?.extensionVersion,
                       appVersion: status?.appVersion,
                     })}{" "}
                     {OS === "mac"
-                      ? t("Reload it: on {page} click ↻ next to Prism, or restart the browser.", { page: "chrome://extensions" })
-                      : t("Reload it: on {page} or {page2} click ↻ next to Prism, or restart the browser.", { page: "chrome://extensions", page2: "edge://extensions" })}
+                      ? t("Reload it: on {page} click ↻ next to Fetchly, or restart the browser.", { page: "chrome://extensions" })
+                      : t("Reload it: on {page} or {page2} click ↻ next to Fetchly, or restart the browser.", { page: "chrome://extensions", page2: "edge://extensions" })}
                   </span>
                 )
               ) : (
                 <span className="cbanner__txt">
-                  <b>{t("Catch downloads straight from your browser.")}</b> {t("Add the Prism extension — it takes about a minute.")}
+                  <b>{t("Catch downloads straight from your browser.")}</b> {t("Add the Fetchly extension — it takes about a minute.")}
                 </span>
               )}
               <button type="button" className="btn btn--primary btn--sm" onClick={onOpen}>

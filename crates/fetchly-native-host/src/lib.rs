@@ -34,6 +34,10 @@ pub const HOST_DESCRIPTION: &str = "Prism download manager browser integration";
 /// Stable ID of the unpacked/dev Chromium extension. It is derived from the
 /// public key embedded in `extension/manifest` (`key`), see `extension/README.md`.
 pub const CHROME_EXTENSION_ID: &str = "mmcdeiglkbfbicdjboocmhehodogilfl";
+/// Fetchly Chrome Web Store extension ID.
+pub const FETCHLY_CHROME_STORE_ID: &str = "ejckhmcndeolcfiponjckgihbeibge";
+/// Fetchly unpacked local Chromium extension ID.
+pub const FETCHLY_CHROME_UNPACKED_ID: &str = "ijnaoflhjhlejpncdbajoohmknjickdp";
 
 /// Gecko ID of the Firefox build (`browser_specific_settings.gecko.id`), the one listed on
 /// Firefox Add-ons. The ID used before 1.1.6 is no longer allowed (GHSA-v59w-jfj8-7pf6): it
@@ -66,6 +70,8 @@ pub fn caller_allowed(caller: Option<&str>, extra: &[String]) -> bool {
     // checked here; its manifest only allows Prism's ID.
     caller.starts_with("moz-extension://")
         || id == CHROME_EXTENSION_ID
+        || id == FETCHLY_CHROME_STORE_ID
+        || id == FETCHLY_CHROME_UNPACKED_ID
         || id == FIREFOX_EXTENSION_ID
         || extra.iter().any(|e| e.trim() == id && !e.trim().is_empty())
 }

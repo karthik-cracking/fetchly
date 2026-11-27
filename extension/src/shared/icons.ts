@@ -2,19 +2,13 @@
 
 let gradSeq = 0;
 
-/** The Prism mark: a glass prism splitting a white ray into a spectrum. */
+/** The Fetchly mark: a sleek lightning-bolt download arrow. */
 export function prismMark(size = 18): string {
   const g = `prism-g${++gradSeq}`;
-  return `<svg class="prism-mark" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<defs><linearGradient id="${g}" x1="5" y1="4" x2="19" y2="19" gradientUnits="userSpaceOnUse">
-<stop offset="0" stop-color="#bff3ff"/><stop offset=".55" stop-color="#9fb4ff"/><stop offset="1" stop-color="#c39bff"/></linearGradient></defs>
-<path d="M1.2 13.6 7.6 12.1" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-<path d="m15.2 10.9 7.4-3.3" stroke="#ff6b8b" stroke-width="1.5" stroke-linecap="round"/>
-<path d="m15.6 11.9 7.3-.9" stroke="#ffc65c" stroke-width="1.5" stroke-linecap="round"/>
-<path d="m16 12.9 6.9 1.6" stroke="#4fe0a3" stroke-width="1.5" stroke-linecap="round"/>
-<path d="m16.4 13.9 6.1 4" stroke="#5fa8ff" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M11.6 3.2 19.4 18.6H3.8Z" fill="url(#${g})" fill-opacity=".28" stroke="url(#${g})" stroke-width="1.7" stroke-linejoin="round"/>
-<path d="M11.6 6.4 9 11.6" stroke="#fff" stroke-opacity=".55" stroke-width="1" stroke-linecap="round"/>
+  return `<svg class="prism-mark" width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+<defs><linearGradient id="${g}" x1="20" y1="8" x2="44" y2="56" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#a78bfa"/><stop offset=".5" stop-color="#60a5fa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+<path d="M31 8h11L32.5 24H43L31 38h9.5L29 56 17.5 38H27l6-10H22L31 8z" fill="url(#${g})" stroke="#fff" stroke-opacity=".35" stroke-width="1.5" stroke-linejoin="round"/>
 </svg>`;
 }
 

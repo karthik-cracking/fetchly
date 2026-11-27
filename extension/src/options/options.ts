@@ -26,8 +26,8 @@ function fill(s: CaptureSettings, st?: StoredState): void {
   if (st) {
     $('source-line').textContent =
       st.settingsSource === 'app'
-        ? `Settings follow the Prism app${st.appVersion ? ` (v${st.appVersion})` : ''}. Saving here overrides them locally.`
-        : 'Using local settings. “Sync from Prism” goes back to the app’s settings.';
+        ? `Settings follow the Fetchly app${st.appVersion ? ` (v${st.appVersion})` : ''}. Saving here overrides them locally.`
+        : 'Using local settings. “Sync from Fetchly” goes back to the app’s settings.';
   }
 }
 
@@ -66,12 +66,12 @@ $('reset').addEventListener('click', () => {
 });
 
 $('sync').addEventListener('click', async () => {
-  setStatus('Asking Prism…');
+  setStatus('Asking Fetchly…');
   const r = await sendInternal<{ ok: boolean; state?: StoredState; error?: string }>({ kind: 'syncSettings' });
   if (r?.ok && r.state) {
     fill(r.state.settings, r.state);
-    setStatus('Settings synced from Prism.', 'ok');
-  } else setStatus(`Couldn’t reach Prism: ${r?.error ?? 'no answer'}. Is the app running?`, 'bad');
+    setStatus('Settings synced from Fetchly.', 'ok');
+  } else setStatus(`Couldn’t reach Fetchly: ${r?.error ?? 'no answer'}. Is the app running?`, 'bad');
 });
 
 void load();
