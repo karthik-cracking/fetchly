@@ -30,8 +30,8 @@ use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
 use crate::{
-    CHROME_EXTENSION_ID, FETCHLY_CHROME_STORE_ID, FETCHLY_CHROME_UNPACKED_ID, HOST_DESCRIPTION,
-    HOST_NAME, paths,
+    CHROME_EXTENSION_ID, FETCHLY_CHROME_INSTALLED_ID, FETCHLY_CHROME_STORE_ID,
+    FETCHLY_CHROME_UNPACKED_ID, HOST_DESCRIPTION, HOST_NAME, paths,
 };
 
 /// Brave and Brave Origin channel directory names under `BraveSoftware/`.
@@ -183,6 +183,7 @@ impl RegisterOptions {
             chrome_extension_ids: vec![
                 FETCHLY_CHROME_STORE_ID.to_string(),
                 FETCHLY_CHROME_UNPACKED_ID.to_string(),
+                FETCHLY_CHROME_INSTALLED_ID.to_string(),
                 CHROME_EXTENSION_ID.to_string(),
             ],
             firefox_extension_ids: crate::firefox_extension_ids(),
